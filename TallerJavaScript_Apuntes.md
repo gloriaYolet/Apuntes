@@ -112,3 +112,110 @@ let isestudiante=true;
 let calificacion=90.0;
 
 <!--esto es un comentario-->
+```   
+//alert("Estamos en el archivo EstructuraCiclo.js");
+
+//Estructura de control for
+for(let i=0; i<=10; i++){
+	console.log("No interacion: "+ i);
+}
+
+//estructura de control while
+let contador=1;
+
+while(contador < 10){
+	console.log("[while]No interacion: "+ contador);
+	contador++;
+}
+//Estructura de control do/while
+let numero=1;
+do{
+	console.log("[do/while]No interacion: " + numero);
+	numero++;
+}while (numero < 10);
+
+//for in
+//este bucle itera las propiedades enumerables de un objeto 
+let estudiante = { nombre:"Juan Perez", edad:19, calificacion:80 };
+for (let propiedad in estudiante){
+	console.log(propiedad + ": " + estudiante[propiedad]);
+}
+
+//Bucle for..of
+//Este ciclo itera sobre los valores de un objeto iterable (como un array)
+let mis_numeros=[10,20,30,40,50];
+for (let numero of mis_numeros) {
+	console.log(numero);
+}
+
+console.log("Bienvenido Aquí calcularás tu IMC");
+
+let peso;
+let altura;
+
+peso = prompt("Ingresa tu peso en kg:");
+altura = prompt("Ingresa tu altura en metros:");
+
+// Convertir las entradas a números
+peso = parseInt(peso);
+altura = parseInt(altura);
+
+if (peso > 0 && altura > 0) {
+    // Calcular el IMC
+    let imc = peso / (altura * altura);
+    let rango;
+
+    // Determinar el rango del IMC
+    if (imc < 18.5) {
+        rango = "Bajo peso";
+    } else if (imc >= 18.5 && imc <= 24.9) {
+        rango = "Normal";
+    } else if (imc >= 25 && imc <= 29.9) {
+        rango = "Sobrepeso";
+    } else if (imc >= 30 && imc <= 34.9) {
+        rango = "Obesidad I";
+    } else if (imc >= 35 && imc <= 39.9) {
+        rango = "Obesidad II";
+    } else if (imc >= 40 && imc <= 49.9) {
+        rango = "Obesidad III";
+    } else if (imc >= 50) {
+        rango = "Obesidad IV";
+    }
+
+    // Mostrar el resultado
+    console.log("Tu IMC es: " + imc);
+    console.log("Rango: " + rango);
+} else {
+    // Mostrar mensaje de error si los valores no son válidos
+    console.log("Por favor, ingresa valores válidos para peso y altura.");
+}
+document.getElementById("emailForm").addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  const to = document.getElementById("toEmail").value;
+  const subject = document.getElementById("subject").value;
+  const message = document.getElementById("message").value;
+
+  fetch("/sendEmail", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: `to=${encodeURIComponent(to)}&subject=${encodeURIComponent(subject)}&message=${encodeURIComponent(message)}`
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.status === "success") {
+      document.getElementById("notification").innerText = "Correo enviado exitosamente";
+      document.getElementById("notification").classList.add("text-success");
+    } else {
+      document.getElementById("notification").innerText = "Error al enviar el correo";
+      document.getElementById("notification").classList.add("text-danger");
+    }
+  })
+  .catch(error => {
+    document.getElementById("notification").innerText = "Error al enviar el correo";
+    document.getElementById("notification").classList.add("text-danger");
+    console.error("Error:", error);
+  });
+});
